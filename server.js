@@ -4,14 +4,15 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express from "express";
 import http from "http";
-import cors from "cors";
 import { graphqlUploadExpress } from "graphql-upload";
 import bodyParser from "body-parser";
+import path from "path";
 
 import { getUser } from "./users/users.utils";
 import { typeDefs, resolvers } from "./schema";
 
 async function startServer() {
+  const PORT = process.env.PORT;
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
@@ -21,9 +22,10 @@ async function startServer() {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
+  app.use("/static", express.static("uploads"));
+
   app.use(
     "/",
-    cors(),
     bodyParser.json(),
     graphqlUploadExpress(),
     expressMiddleware(server, {
@@ -32,8 +34,9 @@ async function startServer() {
       }),
     })
   );
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000/`);
+
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${PORT}/`);
 }
 
 startServer();

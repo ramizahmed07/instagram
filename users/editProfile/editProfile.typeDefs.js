@@ -1,11 +1,5 @@
 export default `#graphql
   scalar Upload
-  # type File {
-  #   filename: String!
-  #   mimetype: String!
-  #   encoding: String!
-  # }
-
   type EditProfileResult {
     ok: Boolean!
     error: String
