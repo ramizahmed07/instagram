@@ -1,24 +1,39 @@
 require("dotenv").config();
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import express from "express";
+import http from "http";
+import cors from "cors";
+import { graphqlUploadExpress } from "graphql-upload";
+import bodyParser from "body-parser";
 
-import { schema } from "./schema";
-import { getUser, protectResolvers } from "./users/users.utils";
-
-const PORT = process.env.PORT;
-
-const server = new ApolloServer({
-  schema,
-});
+import { getUser } from "./users/users.utils";
+import { typeDefs, resolvers } from "./schema";
 
 async function startServer() {
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: PORT },
-    context: async ({ req }) => ({
-      loggedInUser: await getUser(req.headers.authorization),
-    }),
+  const app = express();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    uploads: false,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
-  console.log(`🚀  Server ready at: ${url}`);
+  await server.start();
+  app.use(
+    "/",
+    cors(),
+    bodyParser.json(),
+    graphqlUploadExpress(),
+    expressMiddleware(server, {
+      context: async ({ req }) => ({
+        loggedInUser: await getUser(req.headers.authorization),
+      }),
+    })
+  );
+  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000/`);
 }
 
 startServer();

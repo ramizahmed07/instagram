@@ -6,7 +6,7 @@ export default {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, password, username, email }
+      { firstName, lastName, password, username, email, bio }
     ) => {
       try {
         const user = await client.user.findFirst({
@@ -26,6 +26,7 @@ export default {
             password: hashedPassword,
             email,
             username,
+            bio,
           },
         });
       } catch (error) {

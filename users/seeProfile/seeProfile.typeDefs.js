@@ -7,6 +7,8 @@ export default `#graphql
     lastName: String
     createdAt: String!
     updatedAt: String
+    bio: String
+    avatar: String
   }
   type Query {
     seeProfile(username: String!): User
