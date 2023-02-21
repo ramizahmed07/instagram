@@ -1,9 +1,9 @@
 export default `#graphql
-  type FollowUserResult {
+  type FollowResult {
       ok: Boolean!
       error: String
   }
   type Mutation {
-    follow(username: String!): FollowUserResult!
+    follow(username: String!): FollowResult!
   }
 `;
