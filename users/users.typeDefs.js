@@ -14,9 +14,6 @@ export default `#graphql
     totalFollowing: Int!,
     totalFollowers: Int!,
     isMe: Boolean!
-
+    isFollowing: Boolean!
   }
 `;
-
-// isFollowing: Boolean!
-// isMe: Boolean!
