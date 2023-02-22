@@ -14,5 +14,6 @@ export default {
           },
         },
       }),
+    isMe: ({ id }, _, { loggedInUser }) => id === loggedInUser?.id,
   },
 };
