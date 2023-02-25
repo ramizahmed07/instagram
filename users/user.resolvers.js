@@ -25,7 +25,6 @@ export default {
           },
         },
       });
-      console.log(exists);
       return exists !== 0;
     },
   },
