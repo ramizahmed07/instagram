@@ -6,7 +6,6 @@ import express from "express";
 import http from "http";
 import { graphqlUploadExpress } from "graphql-upload";
 import bodyParser from "body-parser";
-import path from "path";
 
 import { getUser } from "./users/users.utils";
 import { typeDefs, resolvers } from "./schema";

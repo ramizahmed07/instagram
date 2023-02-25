@@ -1,15 +1,13 @@
 export default `#graphql
-
   type Post {
     id: Int!
     file: String!
     caption: String
     createdAt: String!
     updatedAt: String!
-    hashtag: [Hashtag]
+    hashtags: [Hashtag]
     user: User!
   }
-
   type Hashtag {
     id: Int!
     hashtag: String!
@@ -17,5 +15,4 @@ export default `#graphql
     createdAt: String!
     updatedAt: String
   }
-
 `;
