@@ -27,6 +27,10 @@ export default {
       });
       return exists !== 0;
     },
-    posts: ({ id }) => client.user.findUnique({ where: { id } }).posts(),
+    posts: ({ id }, { page }) =>
+      client.user.findUnique({ where: { id } }).posts({
+        take: 5,
+        skip: (page - 1) * 5,
+      }),
   },
 };
