@@ -15,7 +15,12 @@ export default {
       }),
   },
   Hashtag: {
-    posts: ({ id }) => client.hashtag.findUnique({ where: { id } }).posts(),
+    posts: ({ id }, { page }) =>
+      client.hashtag.findUnique({ where: { id } }).posts({
+        take: 5,
+        skip: (page - 1) * 5,
+      }),
+
     totalPosts: ({ id }) =>
       client.post.count({
         where: {

@@ -11,7 +11,7 @@ export default `#graphql
   type Hashtag {
     id: Int!
     hashtag: String!  
-    posts: [Post]
+    posts(page: Int!): [Post]
     totalPosts: Int
     createdAt: String!
     updatedAt: String
