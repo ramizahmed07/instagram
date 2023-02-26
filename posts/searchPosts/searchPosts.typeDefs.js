@@ -1,5 +1,5 @@
 export default `#graphql 
   type Query {
-    searchPosts(keyword: String!): [Post]
+    searchPosts(keyword: String!, page: Int!): [Post]
   }
 `;

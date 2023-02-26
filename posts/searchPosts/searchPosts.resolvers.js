@@ -2,13 +2,15 @@ import client from "../../client";
 
 export default {
   Query: {
-    searchPosts: (_, { keyword }) =>
+    searchPosts: (_, { keyword, page }) =>
       client.post.findMany({
         where: {
           caption: {
-            startsWith: keyword,
+            contains: keyword,
           },
         },
+        skip: (page - 1) * 5,
+        take: 5,
       }),
   },
 };
