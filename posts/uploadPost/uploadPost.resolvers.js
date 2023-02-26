@@ -1,5 +1,6 @@
 import client from "../../client";
 import { protectedResolvers } from "../../users/users.utils";
+import { processHashtags } from "../posts.utils";
 
 export default {
   Mutation: {
@@ -7,11 +8,7 @@ export default {
       async (_, { file, caption }, { loggedInUser }) => {
         let hashtagObj = null;
         if (caption) {
-          const hashtags = caption.match(/#[\w]+/g);
-          hashtagObj = hashtags.map((hashtag) => ({
-            where: { hashtag },
-            create: { hashtag },
-          }));
+          hashtagObj = processHashtags(caption);
         }
         const post = await client.post.create({
           data: {
