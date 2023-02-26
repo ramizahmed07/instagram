@@ -9,6 +9,7 @@ export default `#graphql
     updatedAt: String
     bio: String!
     avatar: String!
+    posts: [Post]
     followers: [User],
     following: [User],
     totalFollowing: Int!,
