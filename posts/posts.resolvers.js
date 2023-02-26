@@ -14,4 +14,13 @@ export default {
         },
       }),
   },
+  Hashtag: {
+    posts: ({ id }) => client.hashtag.findUnique({ where: { id } }).posts(),
+    totalPosts: ({ id }) =>
+      client.post.count({
+        where: {
+          hashtags: { some: { id } },
+        },
+      }),
+  },
 };
