@@ -3,10 +3,11 @@ export default `#graphql
     id: Int!
     file: String!
     caption: String
-    createdAt: String!
-    updatedAt: String!
+    likes: [Like]
     hashtags: [Hashtag]
     user: User!
+    createdAt: String!
+    updatedAt: String!
   }
   type Hashtag {
     id: Int!
@@ -14,6 +15,12 @@ export default `#graphql
     posts(page: Int!): [Post]
     totalPosts: Int
     createdAt: String!
-    updatedAt: String
+    updatedAt: String!
+  }
+  type Like {
+    id: Int!
+    post: Post!
+    createdAt: String!
+    updatedAt: String!
   }
 `;

@@ -18,6 +18,7 @@ model User {
   firstName String
   lastName  String?
   posts     Post[]
+  likes     Like[]
   followers User[]   @relation("UserFollows")
   following User[]   @relation("UserFollows")
   password  String
@@ -36,6 +37,7 @@ model Post {
   hashtags  Hashtag[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  likes     Like[]
 }
 
 model Hashtag {
@@ -44,4 +46,16 @@ model Hashtag {
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, postId])
 }

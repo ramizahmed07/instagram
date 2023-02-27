@@ -17,7 +17,7 @@ export default {
         });
         if (!oldPost) return { ok: false, error: "Post not found!" };
 
-        const post = await client.post.update({
+        await client.post.update({
           where: { id },
           data: {
             caption,
