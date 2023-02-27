@@ -13,7 +13,14 @@ export default {
           },
         },
       }),
+    likes: ({ id }) =>
+      client.like.count({
+        where: {
+          postId: id,
+        },
+      }),
   },
+
   Hashtag: {
     posts: ({ id }, { page }) =>
       client.hashtag.findUnique({ where: { id } }).posts({

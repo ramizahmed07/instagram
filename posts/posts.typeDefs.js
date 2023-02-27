@@ -3,9 +3,10 @@ export default `#graphql
     id: Int!
     file: String!
     caption: String
-    likes: [Like]
+    likes: Int!
     hashtags: [Hashtag]
     user: User!
+    userId: Int!
     createdAt: String!
     updatedAt: String!
   }
