@@ -8,23 +8,19 @@ export default {
         where: { id },
       });
       if (!post) return { ok: false, error: "Post not found." };
-      const like = await client.like.findUnique({
-        where: {
-          userId_postId: {
-            userId: loggedInUser?.id,
-            postId: id,
-          },
+      const where = {
+        userId_postId: {
+          userId: loggedInUser?.id,
+          postId: id,
         },
+      };
+      const like = await client.like.findUnique({
+        where,
       });
 
       if (like) {
         await client.like.delete({
-          where: {
-            userId_postId: {
-              postId: id,
-              userId: loggedInUser?.id,
-            },
-          },
+          where,
         });
       } else {
         await client.like.create({
