@@ -1,10 +1,5 @@
-export default `#graphql 
-  type ToggleLikeResult {
-    ok: Boolean!
-    error: String
-  }
-
+export default `#graphql  
   type Mutation {
-    toggleLike(id: Int!): ToggleLikeResult!
+    toggleLike(id: Int!): MutationResponse!
   }
 `;

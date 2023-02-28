@@ -1,9 +1,5 @@
-export default `#graphql 
-  type EditPhotoResult {
-    ok: Boolean!
-    error: String
-  }
+export default `#graphql  
   type Mutation {
-    editPost(id: Int!, caption: String!): EditPhotoResult!
+    editPost(id: Int!, caption: String!): MutationResponse!
   }
 `;

@@ -1,9 +1,5 @@
-export default `#graphql
-  type DeleteCommentResult {
-    ok: Boolean!
-    error: String
-  }
+export default `#graphql 
   type Mutation {
-    deleteComment(id: Int!): DeleteCommentResult!
+    deleteComment(id: Int!): MutationResponse!
   }
 `;
