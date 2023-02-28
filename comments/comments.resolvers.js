@@ -2,8 +2,6 @@ import client from "../client";
 
 export default {
   Comment: {
-    isMine: (root) => {
-      console.log(root);
-    },
+    isMine: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id,
   },
 };

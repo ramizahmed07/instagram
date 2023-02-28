@@ -3,6 +3,13 @@ import client from "../../client";
 export default {
   Query: {
     seePostComments: (_, { id }) =>
-      client.post.findUnique({ where: { id } }).comments(),
+      client.comment.findMany({
+        where: {
+          postId: id,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      }),
   },
 };
