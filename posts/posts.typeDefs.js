@@ -6,7 +6,6 @@ export default `#graphql
     likes: Int!
     hashtags: [Hashtag]
     user: User!
-    userId: Int!
     createdAt: String!
     updatedAt: String!
   }

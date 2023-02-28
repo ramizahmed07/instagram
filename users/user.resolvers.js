@@ -17,15 +17,18 @@ export default {
     isMe: ({ id }, _, { loggedInUser }) => id === loggedInUser?.id,
     isFollowing: async ({ id }, _, { loggedInUser }) => {
       if (!loggedInUser) return false;
-      const exists = await client.user.count({
+      const exists = await client.user.findFirst({
         where: {
-          username: loggedInUser.username,
+          username: loggedInUser?.username,
           following: {
             some: { id },
           },
         },
+        select: {
+          following: { select: { id: true } },
+        },
       });
-      return exists !== 0;
+      return !!exists;
     },
     posts: ({ id }, { page }) =>
       client.user.findUnique({ where: { id } }).posts({
