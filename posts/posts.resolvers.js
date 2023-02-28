@@ -19,6 +19,10 @@ export default {
           postId: id,
         },
       }),
+    comments: ({ id }) =>
+      client.comment.count({
+        where: { postId: id },
+      }),
   },
 
   Hashtag: {
