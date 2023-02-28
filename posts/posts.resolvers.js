@@ -23,6 +23,13 @@ export default {
       client.comment.count({
         where: { postId: id },
       }),
+    isMine: ({ id }, _, { loggedInUser }) =>
+      client.post
+        .findFirst({
+          where: { id, userId: loggedInUser?.id },
+          select: { id: true, userId: true },
+        })
+        .then((res) => Boolean(res)),
   },
 
   Hashtag: {
