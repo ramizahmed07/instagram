@@ -3,7 +3,6 @@ import client from "../../client";
 export default {
   Query: {
     seePostLikes: async (_, { id }) => {
-      console.log(id);
       const likes = await client.like.findMany({
         where: {
           postId: id,
