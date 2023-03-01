@@ -4,6 +4,7 @@ import { createWriteStream } from "fs";
 
 import client from "../../client";
 import { protectedResolvers } from "../users.utils";
+import { upload } from "../../shared/shared.utils";
 
 export default {
   Upload: GraphQLUpload,
@@ -16,14 +17,7 @@ export default {
       ) => {
         let avatarUrl = null;
         if (avatar) {
-          const { filename, createReadStream } = await avatar;
-          const newFileName = `${loggedInUser.id}-${Date.now()}-${filename}`;
-          const readStream = createReadStream();
-          const writeSream = createWriteStream(
-            process.cwd() + "/uploads/" + newFileName
-          );
-          readStream.pipe(writeSream);
-          avatarUrl = `http://localhost:4000/static/${newFileName}`;
+          avatarUrl = await upload(avatar, loggedInUser?.id);
         }
 
         const hashedPassword = password && (await bcrypt.hash(password, 10));

@@ -25,6 +25,7 @@
     "@graphql-tools/merge": "^8.3.18",
     "@graphql-tools/schema": "^9.0.16",
     "@prisma/client": "^4.10.0",
+    "aws-sdk": "^2.1325.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "dotenv": "^16.0.3",
