@@ -17,7 +17,7 @@ export default {
       ) => {
         let avatarUrl = null;
         if (avatar) {
-          avatarUrl = await upload(avatar, loggedInUser?.id);
+          avatarUrl = await upload(avatar, loggedInUser?.id, "avatars");
         }
 
         const hashedPassword = password && (await bcrypt.hash(password, 10));
