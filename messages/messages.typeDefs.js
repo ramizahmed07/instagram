@@ -10,6 +10,7 @@ export default `#graphql
 
   type Room {
     id: Int!
+    unreadTotal: Int!
     messages: [Message]
     users: [User]
     createdAt: String!
