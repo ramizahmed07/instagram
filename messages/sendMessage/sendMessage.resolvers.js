@@ -1,4 +1,6 @@
 import client from "../../client";
+import { NEW_MESSAGE } from "../../constants";
+import { pubsub } from "../../pubsub";
 import { protectedResolvers } from "../../users/users.utils";
 
 export default {
@@ -19,15 +21,19 @@ export default {
               },
             },
           });
-        } else if (roomId) {
+        }
+        if (roomId) {
           room = await client.room.findUnique({
             where: { id: roomId },
             select: { id: true },
           });
           if (!room) return { ok: false, error: "Room not found." };
         }
-
-        await client.message.create({
+        await client.message.updateMany({
+          where: { roomId: room?.id, userId: { not: loggedInUser?.id } },
+          data: { read: true },
+        });
+        const message = await client.message.create({
           data: {
             text,
             room: {
@@ -40,6 +46,7 @@ export default {
             },
           },
         });
+        pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
         return { ok: true };
       }
     ),

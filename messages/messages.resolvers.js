@@ -4,7 +4,7 @@ export default {
   Room: {
     users: ({ id }) => client.room.findUnique({ where: { id } }).users(),
     messages: ({ id }) => client.message.findMany({ where: { roomId: id } }),
-    unreadTotal: ({ id }, { loggedInUser }) => {
+    unreadTotal: ({ id }, _, { loggedInUser }) => {
       if (!loggedInUser) return 0;
       return client.message.count({
         where: {
@@ -18,5 +18,8 @@ export default {
         },
       });
     },
+  },
+  Message: {
+    user: ({ id }) => client.message.findUnique({ where: { id } }).user(),
   },
 };
